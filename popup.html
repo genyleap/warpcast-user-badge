@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Genyframe Popup">
+  <meta name="author" content="compez.eth | Kambiz Asadzadeh">
+  <title>Genyleap Dashboard</title>
+
+  <script src="./popup.js" type="module"></script>
+  <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset and basic styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Body and background gradient */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--bg-start, #1f1c2c), var(--bg-end, #928dab));
+      color: var(--text-color, #fff);
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Container card */
+    .card-container {
+      background: rgba(0, 0, 0, 0.65);
+      border-radius: 15px;
+      padding: 2rem;
+      width: 23rem;
+      margin: 25px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Header section (logo) */
+    .header-section {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .header-section img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Login section styles */
+    .login-section {
+      margin-bottom: 1.5rem;
+    }
+    .login-section h3 {
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+      color: var(--heading-color, #f0f0f0);
+    }
+    .login-section button {
+      width: 100%;
+      height: 45px;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: linear-gradient(45deg, #6a82fb, #fc5c7d);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .login-section button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Alert box */
+    .alert {
+      font-size: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: none;
+      transition: all 0.3s ease;
+    }
+
+    /* Success alert */
+    .alert-success {
+      background-color: rgba(72, 190, 128, 0.2);
+      color: #28a745;
+    }
+
+    /* Danger alert (for errors) */
+    .alert-danger {
+      background-color: rgba(220, 53, 69, 0.2);
+      color: #dc3545;
+    }
+
+    /* Warning alert */
+    .alert-warning {
+      background-color: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+
+    /* Information alert */
+    .alert-info {
+      background-color: rgba(23, 162, 184, 0.2);
+      color: #17a2b8;
+    }
+
+    /* User data section */
+    .user-data-section {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+    }
+    .user-avatar {
+      margin-bottom: 1rem;
+    }
+    .user-avatar img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #6a82fb;
+    }
+    .user-name-display {
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 0.25rem;
+    }
+    .user-username {
+      font-size: 0.95rem;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+    .user-bio {
+      font-size: 0.9rem;
+      color: #ddd;
+      margin-bottom: 1.5rem;
+    }
+
+    /* List group styling */
+    .list-group {
+      margin-bottom: 1rem;
+    }
+    .list-group-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      padding: 0.75rem 1rem;
+    }
+    .list-group-item h6 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .list-group-item span {
+      font-size: 0.9rem;
+    }
+
+    /* Apply lighter text color for list group items */
+    .list-group-item,
+    .list-group-item h6,
+    .list-group-item span {
+      color: #ddd !important;
+    }
+
+    /* Logout section */
+    .logout-section {
+      text-align: center;
+    }
+    .logout-section h3 {
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+    }
+    .logout-section button {
+      width: 100%;
+      height: 45px;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #dc3545;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .logout-section button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      margin-top: 1rem;
+    }
+
+    /* Dark mode colors */
+    [data-bs-theme="dark"] {
+      --bg-start: #121212;
+      --bg-end: #333333;
+      --text-color: #e0e0e0;
+      --heading-color: #e0e0e0;
+    }
+
+    /* Light mode colors */
+    [data-bs-theme="light"] {
+      --bg-start: #ffffff;
+      --bg-end: #f0f0f0;
+      --text-color: #000000;
+      --heading-color: #000000;
+    }
+
+  </style>
+</head>
+<body>
+  <main>
+
+    <div class="card-container">
+      <!-- Header: Logo -->
+      <div class="header-section">
+        <img src="assets/brand/genyframe.png" alt="Genyframe Logo" width="200">
+      </div>
+
+      <!-- Login Section -->
+      <div id="loginSection" class="login-section">
+        <h3>Unlock Genyframe</h3>
+        <button id="loginBtn" type="button">
+          <span id="spinner" class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+          <span id="loginText">Login</span>
+        </button>
+        <div id="alert" class="alert" role="alert">
+          <span id="alertMessage"></span>
+        </div>
+      </div>
+
+      <!-- User Data Section (Initially Hidden) -->
+      <div id="userDataSection" class="user-data-section" style="display: none;">
+        <div class="user-avatar">
+          <img id="displayAvatar" src="" alt="User Avatar">
+        </div>
+        <h5 id="displayName" class="user-name-display"></h5>
+        <h6 id="userName" class="user-username"></h6>
+        <p id="userBio" class="user-bio"></p>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <h6>Total $GENY</h6>
+            <span id="totalGENY" class="text-muted">100,000,000,000 GENY</span>
+          </li>
+          <li class="list-group-item">
+            <h6>Mine</h6>
+            <small id="mineAddress">0x....64d16bca4c8030b7f6d</small>
+            <span id="mineAmount" class="text-success">0.0</span>
+          </li>
+          <li class="list-group-item">
+            <h6>Followers</h6>
+            <span id="followersCount">0</span>
+          </li>
+          <li class="list-group-item">
+            <h6>Following</h6>
+            <span id="followingCount">0</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Logout Section (Initially Hidden) -->
+      <div id="logoutSection" class="logout-section" style="display: none;">
+        <h3>Welcome, <span id="userNameDisplay"></span></h3>
+        <button id="logoutBtn" type="button">Logout</button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>© 2024 Genyleap, LLC</p>
+    </footer>
+  </main>
+
+  <script src="popup.js"></script>
+  <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
