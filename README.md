@@ -3,7 +3,7 @@
 **Warpcast User Label Badge** is a browser extension that unlocks and displays **user labels and badges** on **Farcaster (Warpcast)**.  
 This extension is **exclusively available** for **Genyframe users**.
 
-![Warpcast Badge Preview](assets/banner.png)
+<img width="647" alt="Screenshot 2025-02-13 at 20 50 38" src="https://github.com/user-attachments/assets/6bb751cb-50d4-46b8-838d-5727a06ba74e" />
 
 ---
 
